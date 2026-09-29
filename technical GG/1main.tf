@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 # Resource block: Creates the Resource Group in Azure
-resource "azurerm_resource_group" "RG" {
+resource "azurerm_resource_group" "myrg" {
   name     = "myrg"
   location = "West Europe"
 }
