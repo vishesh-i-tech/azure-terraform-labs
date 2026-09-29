@@ -27,16 +27,16 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 
 }
-
 resource "azurerm_storage_container" "container" {
   name                  = "container1"
-  storage_account_id    = "jemini24"
-  container_access_type = "container"
+  storage_account_name  = azurerm_storage_account.storage.name
+  container_access_type = "private"
 }
 
 resource "azurerm_storage_blob" "bablu" {
-  name                 = "new321"
-  storage_container_id = "container1"
-  type                 = "Block"
-  source               = "1main.tf"
+  name                   = "new321"
+  storage_account_name   = azurerm_storage_account.storage.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source                 = "1main.tf"
 }
