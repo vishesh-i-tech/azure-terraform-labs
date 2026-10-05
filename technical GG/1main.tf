@@ -10,6 +10,7 @@ terraform {
 # Provider configuration: Tells Terraform how to authenticate with Azure
 provider "azurerm" {
   features {}
+  subscription_id = "c10d7f17-d9e3-4bad-ae5a-bd748d701142"
 }
 
 # 1. Resource Group: The parent container for your infrastructure
