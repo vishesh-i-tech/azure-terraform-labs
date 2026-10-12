@@ -14,7 +14,21 @@ provider "azurerm" {
 
 locals {
   resource_group_name = "myrg"
-  location            = "cetralindia"
+  location            = "centralindia"
+  virtual_network = {
+    name = "vnet1"
+    address_space = ["10.0.0.0/16"]
+  }
+  subnets = [
+    {
+        name = "subnet1"
+        address_prefix = "10.0.1.0/24"
+    },
+    {
+        name = "subnet2"
+        address_prefix = "10.0.2.0/24"
+    }
+  ]
 }
 resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
@@ -23,19 +37,19 @@ resource "azurerm_resource_group" "rg" {
 
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet1"
+  name                = local.virtual_network.name
   location            = local.location
   resource_group_name = local.resource_group_name
-  address_space       = ["10.0.0.0/16"]
+  address_space       = local.virtual_network.address_space
 
   subnet {
-    name           = "subnet1"
-    address_prefix = "10.0.1.0/24"
+    name           = "local.subnets[0].name"
+    address_prefix = local.subnets[0].address_prefix
   }
 
   subnet {
-    name           = "subnet2"
-    address_prefix = "10.0.2.0/24"
+    name           = local.subnets[1].name
+    address_prefix = local.subnets[1].address_prefix
 
   }
 
