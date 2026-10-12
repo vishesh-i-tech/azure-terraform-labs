@@ -1,4 +1,4 @@
-terraform {
+/*terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -26,12 +26,18 @@ resource "azurerm_storage_account" "storage" {
   location                 = azurerm_resource_group.myrg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  depends_on = [
+    azurerm_resource_group.myrg
+  ]
 }
 
 resource "azurerm_storage_container" "container" {
   name                  = "container1"
   storage_account_name  = azurerm_storage_account.storage.name
   container_access_type = "private"
+  depends_on = [
+    azurerm_storage_account.storage
+  ]
 }
 
 resource "azurerm_storage_blob" "bablu" {
@@ -40,4 +46,7 @@ resource "azurerm_storage_blob" "bablu" {
   storage_container_name = azurerm_storage_container.container.name
   type                   = "Block"
   source                 = "1main.tf"
-}
+  depends_on = [
+    azurerm_storage_container.container
+  ] 
+}*/ 
