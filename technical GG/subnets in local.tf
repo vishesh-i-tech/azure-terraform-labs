@@ -43,7 +43,7 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = local.virtual_network.address_space
 
   subnet {
-    name           = "local.subnets[0].name"
+    name           = local.subnets[0].name
     address_prefix = local.subnets[0].address_prefix
   }
 
