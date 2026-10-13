@@ -1,3 +1,17 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+  subscription_id = "c10d7f17-d9e3-4bad-ae5a-bd748d701142"
+}
+
 locals {
   resource_group_name = "myrg"
   location            = "centralindia"
@@ -138,3 +152,21 @@ resource "azurerm_windows_virtual_machine" "virtualmachine1" {
 ] 
 }
 
+resource "azurerm_managed_disk" "datadisk1" {
+  name                 = "disk1"
+  location             = local.location
+  resource_group_name  = local.resource_group_name
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = "10"
+
+ 
+}
+
+
+resource "azurerm_virtual_machine_data_disk_attachment" "attachment" {
+  managed_disk_id    = azurerm_managed_disk.datadisk1.id
+  virtual_machine_id = azurerm_windows_virtual_machine.virtualmachine1.id
+  lun                = "1"
+  caching            = "ReadWrite"
+}
