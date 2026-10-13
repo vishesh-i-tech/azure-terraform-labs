@@ -114,6 +114,9 @@ resource "azurerm_network_security_group" "nsg" {
   tags = {
     channel = "magnum"
   }
+  depends_on = [
+    azurerm_resource_group.rg
+  ]     
 
 }
 
