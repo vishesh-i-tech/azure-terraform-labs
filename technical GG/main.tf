@@ -160,6 +160,9 @@ resource "azurerm_managed_disk" "datadisk1" {
   create_option        = "Empty"
   disk_size_gb         = "10"
 
+depends_on = [
+    azurerm_resource_group.rg
+]
  
 }
 
